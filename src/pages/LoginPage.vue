@@ -10,15 +10,11 @@ export default {
       }
   },
   methods: {
-      login() {
-          let loginDatas = {
-              "email": this.inputLogin.email,
-              "password": this.inputLogin.password
-          }
+      login(email, password) {
           let url = "http://localhost:3000/api/auth/login"
           let paramsFetch = {
               method: "POST",
-              body: JSON.stringify(loginDatas),
+              body: JSON.stringify({email, password}),
               headers: {
                   'Content-Type': 'application/json'
               }
@@ -26,6 +22,8 @@ export default {
           fetch(url, paramsFetch)
               .then(res => res.json())
               .then((res) => {
+                localStorage.setItem("email", email)
+                console.log(email, password)
                   if (res.userId && res.token) {
                       localStorage.setItem("userId", res.userId)
                       localStorage.setItem("token", res.token)
@@ -56,7 +54,7 @@ export default {
 
                 <div class="form-outline mb-3 was-validated">
                   <label for="validationCustom01" class="form-label">Adresse email</label>
-		<input type="email" class="form-control form-control-lg" id="email" v-model="inputLogin.email" name="email" placeholder="exemple@gmail.com" required/>
+		<input type="email" class="form-control form-control-lg" id="email" v-model="email" name="email" placeholder="exemple@gmail.com" required/>
     <div class="invalid-feedback mb-3">
       Veuillez saisir une adresse mail valide.
     </div>
@@ -66,7 +64,7 @@ export default {
   </div>
                 <div class="form-outline mb-3 was-validated">
                   <label class="form-label" for="form3Example1cg">Mot de passe</label>
-                  <input type="password" name="password" id="password" v-model="inputLogin.password" class="form-control form-control-lg" placeholder="password" required/>
+                  <input type="password" name="password" id="password" v-model="password" class="form-control form-control-lg" placeholder="password" required/>
                   <div class="invalid-feedback mb-3">
       Veuillez saisir votre mot de passe.
     </div>

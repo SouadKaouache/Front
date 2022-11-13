@@ -14,7 +14,7 @@
   },
   methods: {
     logoutUser() {
-      localStorage.removeItem("token")
+      localStorage.clear()
       this.$router.go()
     }
   }

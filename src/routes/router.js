@@ -38,4 +38,4 @@ function isTokenRetrieve() {
   return localStorage.getItem("token") != null;
 }
 
-export default router;
+export { router };
